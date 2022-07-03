@@ -1,15 +1,15 @@
 import { BrowserRouter } from 'react-router-dom';
 import PublicRoutes from './routes/PublicRoutes';
 import HeaderComponent from './components/HeaderComponent';
-import firebase from './config/firebase';
+// import FooterComponent from './components/FooterComponent';
 
 const App = () => {
-	console.log(firebase);
 	return (
 		<>
 			<BrowserRouter>
 				<HeaderComponent />
 				<PublicRoutes />
+				{/* <FooterComponent /> */}
 			</BrowserRouter>
 		</>
 	);
