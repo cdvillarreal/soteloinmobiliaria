@@ -1,11 +1,5 @@
 import { Link } from 'react-router-dom';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import FormControl from 'react-bootstrap/FormControl';
+import { Navbar, Nav, NavDropdown, Container, Form, Button, FormControl } from 'react-bootstrap';
 import '../styles/styles.css';
 
 const NavBarComponent = () => {
@@ -13,7 +7,7 @@ const NavBarComponent = () => {
 		<Navbar className='navBg' variant='dark' expand='lg'>
 			<Container>
 				<Navbar.Brand as={Link} to='/'>
-					<img src='./logo.jpg' alt='logo' className='logo' />
+					<img src='../assets/logo.jpg' alt='logo' className='logo' />
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />
 				<Navbar.Collapse id='basic-navbar-nav'>
@@ -60,35 +54,6 @@ const NavBarComponent = () => {
 				</Navbar.Collapse>
 			</Container>
 		</Navbar>
-		// <nav>
-		// 	<ul>
-		// 		<li>
-		// 			<NavLink className={({ isActive }) => (isActive ? 'active' : '')} to='/'>
-		// 				Inicio
-		// 			</NavLink>
-		// 		</li>
-		// 		<li>
-		// 			<NavLink className={({ isActive }) => (isActive ? 'active' : '')} to='/propiedades'>
-		// 				Propiedades
-		// 			</NavLink>
-		// 		</li>
-		// 		<li>
-		// 			<NavLink className={({ isActive }) => (isActive ? 'active' : '')} to='/nosotros'>
-		// 				Nosotros
-		// 			</NavLink>
-		// 		</li>
-		// 		<li>
-		// 			<NavLink className={({ isActive }) => (isActive ? 'active' : '')} to='/contacto'>
-		// 				Contacto
-		// 			</NavLink>
-		// 		</li>
-		// 		<li>
-		// 			<NavLink className={({ isActive }) => (isActive ? 'active' : '')} to='/usuarios'>
-		// 				Usuarios
-		// 			</NavLink>
-		// 		</li>
-		// 	</ul>
-		// </nav>
 	);
 };
 export default NavBarComponent;

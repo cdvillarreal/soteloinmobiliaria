@@ -6,6 +6,43 @@
 	padding: 0;
 }
 
+/* Inicio Navbar */
 .navBg {
 	background-color: #651d90;
 }
+/* Fin Navbar */
+
+/* Inicio Nosotros */
+.mvv {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 1.5rem;
+}
+
+.imgMission,
+.imgVision,
+.imgValues {
+	width: 6rem;
+}
+
+.imgRealtor {
+	height: 10rem;
+	border-radius: 50%;
+}
+/* Fin Nosotros */
+
+/* Inicio Usuarios */
+.loginTitle,
+.registerTitle,
+.contactTitle {
+	font-size: 1.6rem;
+	margin: 1rem 0;
+}
+
+.errorValidation {
+	color: red;
+	font-size: 0.8rem;
+	margin-top: 0.5rem;
+}
+
+/* Fin Usuarios */
