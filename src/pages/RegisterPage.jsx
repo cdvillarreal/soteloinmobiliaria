@@ -1,6 +1,7 @@
 import InputComponent from '../components/InputComponent';
 import { useForm } from 'react-hook-form';
 import { Button, Form } from 'react-bootstrap';
+import firebase from '../config/firebase';
 
 const RegisterPage = () => {
 	const {
@@ -8,7 +9,18 @@ const RegisterPage = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-	const onSubmit = data => {};
+	const onSubmit = async data => {
+		console.log('Data:', data);
+		try {
+			const responseUser = await firebase.auth.createUserWithEmailAndPassword(
+				data.email,
+				data.password
+			);
+			console.log('Response:', responseUser.user.uid);
+		} catch (error) {
+			console.log('Error:', error);
+		}
+	};
 
 	return (
 		<>

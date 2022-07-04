@@ -1,17 +1,17 @@
 import { BrowserRouter } from 'react-router-dom';
-import PublicRoutes from './routes/PublicRoutes';
-import NavBarComponent from './components/NavBarComponent';
-import FooterComponent from './components/FooterComponent';
 import Container from 'react-bootstrap/Container';
+import PublicRoutes from './routes/PublicRoutes';
+import HeaderComponent from './components/HeaderComponent';
+// import FooterComponent from './components/FooterComponent';
 
 const App = () => {
 	return (
 		<BrowserRouter>
-			<NavBarComponent />
+			<HeaderComponent />
 			<Container>
 				<PublicRoutes />
 			</Container>
-			<FooterComponent />
+			{/* <FooterComponent /> */}
 		</BrowserRouter>
 	);
 };

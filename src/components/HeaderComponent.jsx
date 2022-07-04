@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
 import { Navbar, Nav, NavDropdown, Container, Form, Button, FormControl } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import '../styles/styles.css';
 
-const NavBarComponent = () => {
+const HeaderComponent = () => {
 	return (
 		<Navbar className='navBg' variant='dark' expand='lg'>
 			<Container>
@@ -56,4 +56,5 @@ const NavBarComponent = () => {
 		</Navbar>
 	);
 };
-export default NavBarComponent;
+
+export default HeaderComponent;
