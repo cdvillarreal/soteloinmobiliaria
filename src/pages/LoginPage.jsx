@@ -1,6 +1,7 @@
 import InputComponent from '../components/InputComponent';
 import { useForm } from 'react-hook-form';
 import { Button, Form } from 'react-bootstrap';
+import firebase from '../config/firebase';
 
 const LoginPage = () => {
 	const {
@@ -8,27 +9,46 @@ const LoginPage = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-	const onSubmit = data => {};
+	const onSubmit = async data => {
+		console.log('data', data);
+		try {
+			const responseUser = await firebase.auth.signInWithEmailAndPassword(
+				data.email,
+				data.password
+			);
+			console.log(responseUser.user.uid);
+		} catch (e) {
+			console.log(e);
+		}
+	};
 
 	return (
 		<div className='mainLogin'>
-			<h1 className='loginTitle'>Iniciar sesión</h1>
+			<h1 className='title'>Iniciar sesión</h1>
 			<Form onSubmit={handleSubmit(onSubmit)}>
 				<InputComponent
-					name='username'
-					label='Usuario:'
+					type='email'
+					name='email'
+					label='E-mail:'
 					className='form-control'
-					placeholder='Usuario'
-					autoFocus
-					register={{ ...register('username', { required: true }) }}
+					register={{
+						...register('email', {
+							required: true,
+							pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+						}),
+					}}
 				/>
-				{errors.username && <span className='errorValidation'>El usuario es requerido.</span>}
+				{errors.email?.type === 'required' && (
+					<span className='errorValidation'>El correo electrónico es requerido.</span>
+				)}
+				{errors.email?.type === 'pattern' && (
+					<span className='errorValidation'>El correo electrónico no es válido.</span>
+				)}
 				<InputComponent
 					type='password'
 					name='password'
 					label='Contraseña:'
 					className='form-control'
-					placeholder='Contraseña'
 					register={{ ...register('password', { required: true }) }}
 				/>
 				{errors.password && <span className='errorValidation'>La contraseña es requerida.</span>}

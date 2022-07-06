@@ -1,7 +1,7 @@
 const PropertiesAnnualRent = () => {
 	return (
 		<div>
-			<h1>Propiedades: Alquiler anual</h1>
+			<h1 className='title'>Propiedades: Alquiler anual</h1>
 		</div>
 	);
 };

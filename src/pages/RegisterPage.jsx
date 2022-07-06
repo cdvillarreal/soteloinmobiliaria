@@ -1,9 +1,11 @@
 import InputComponent from '../components/InputComponent';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Form } from 'react-bootstrap';
 import firebase from '../config/firebase';
 
 const RegisterPage = () => {
+	const [message, setMessage] = useState('');
 	const {
 		register,
 		handleSubmit,
@@ -11,12 +13,26 @@ const RegisterPage = () => {
 	} = useForm();
 	const onSubmit = async data => {
 		console.log('Data:', data);
+		const resetForm = () => {
+			setMessage('Usuario registrado con éxito!!');
+			// No sé como resetear el formulario o redireccionar a la página de inicio de sesión.
+		};
 		try {
 			const responseUser = await firebase.auth.createUserWithEmailAndPassword(
 				data.email,
 				data.password
 			);
 			console.log('Response:', responseUser.user.uid);
+			resetForm();
+			if (responseUser.user.uid) {
+				const document = await firebase.db.collection('usuarios').add({
+					name: data.firstName,
+					lastName: data.lastName,
+					tel: data.tel,
+					userId: responseUser.user.uid,
+				});
+				console.log('Document:', document);
+			}
 		} catch (error) {
 			console.log('Error:', error);
 		}
@@ -24,13 +40,14 @@ const RegisterPage = () => {
 
 	return (
 		<>
-			<h1 className='registerTitle'>Registro</h1>
+			<h1 className='title'>Registro de usuarios</h1>
 			<Form onSubmit={handleSubmit(onSubmit)}>
 				<InputComponent
 					type='text'
 					name='firstName'
-					label='Nombre'
+					label='Nombre:'
 					className='form-control'
+					autofocus
 					register={{ ...register('firstName', { required: true, minLength: 3 }) }}
 				/>
 				{errors.firstName?.type === 'required' && (
@@ -42,7 +59,7 @@ const RegisterPage = () => {
 				<InputComponent
 					type='text'
 					name='lastName'
-					label='Apellido'
+					label='Apellido:'
 					className='form-control'
 					register={{ ...register('lastName', { required: true, minLength: 3 }) }}
 				/>
@@ -55,7 +72,7 @@ const RegisterPage = () => {
 				<InputComponent
 					type='email'
 					name='email'
-					label='Email'
+					label='E-mail:'
 					className='form-control'
 					register={{
 						...register('email', {
@@ -73,44 +90,34 @@ const RegisterPage = () => {
 				<InputComponent
 					type='tel'
 					name='tel'
-					label='Teléfono'
+					label='Teléfono:'
 					className='form-control'
+					placeholder='Sin 0 y sin 15.'
 					register={{ ...register('tel', { required: true, pattern: /^\d{10}$/ }) }}
 				/>
 				{errors.tel?.type === 'pattern' && (
 					<span className='errorValidation'>El teléfono no es válido.</span>
 				)}
 				<InputComponent
-					type='text'
-					name='user'
-					label='Usuario'
-					className='form-control'
-					register={{ ...register('user', { required: true, minLength: 3 }) }}
-				/>
-				{errors.user?.type === 'required' && (
-					<span className='errorValidation'>El usuario es requerido.</span>
-				)}
-				{errors.user?.type === 'minLength' && (
-					<span className='errorValidation'>El usuario debe tener más de tres caracteres.</span>
-				)}
-				<InputComponent
 					type='password'
 					name='password'
-					label='Contraseña'
+					label='Contraseña:'
 					className='form-control'
-					register={{ ...register('password', { required: true, minLength: 3 }) }}
+					placeholder='Mínimo: 6 caracteres.'
+					register={{ ...register('password', { required: true, minLength: 6 }) }}
 				/>
 				{errors.password?.type === 'required' && (
 					<span className='errorValidation'>La contraseña es requerida.</span>
 				)}
 				{errors.password?.type === 'minLength' && (
-					<span className='errorValidation'>La contraseña debe tener más de tres caracteres.</span>
+					<span className='errorValidation'>La contraseña debe tener más de seis caracteres.</span>
 				)}
 				<div>
 					<Button type='submit' className='btn btn-primary'>
 						Registrarse
 					</Button>
 				</div>
+				<div className='message'>{message}</div>
 			</Form>
 		</>
 	);

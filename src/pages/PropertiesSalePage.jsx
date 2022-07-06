@@ -1,7 +1,7 @@
 const PropertiesSalePage = () => {
 	return (
 		<div>
-			<h1>Propiedades en venta</h1>
+			<h1 className='title'>Propiedades en venta</h1>
 		</div>
 	);
 };

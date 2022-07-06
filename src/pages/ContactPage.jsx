@@ -1,6 +1,7 @@
 import InputComponent from '../components/InputComponent';
-import { Form, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { Button, Form } from 'react-bootstrap';
+import firebase from '../config/firebase';
 
 const ContactPage = () => {
 	const {
@@ -8,17 +9,30 @@ const ContactPage = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-	const onSubmit = data => {};
+	const onSubmit = async data => {
+		console.log('Data:', data);
+		try {
+			const document = await firebase.db.collection('contacto').add({
+				name: data.name,
+				email: data.email,
+				message: data.message,
+			});
+			console.log('Document:', document);
+		} catch (error) {
+			console.log('Error:', error);
+		}
+	};
 
 	return (
 		<>
-			<h1 className='contactTitle'>Contacto</h1>
+			<h1 className='title'>Contacto</h1>
 			<Form onSubmit={handleSubmit(onSubmit)}>
 				<InputComponent
 					type='text'
 					name='name'
 					label='Nombre:'
 					className='form-control'
+					autofocus
 					register={{ ...register('name', { required: true, minLength: 3 }) }}
 				/>
 				{errors.name?.type === 'required' && (
@@ -43,15 +57,14 @@ const ContactPage = () => {
 					<span className='errorValidation'>El correo electrónico es requerido.</span>
 				)}
 				{errors.email?.type === 'pattern' && (
-					<span className='errorValidation'>El formato del correo electrónico no es válido.</span>
+					<span className='errorValidation'>El correo electrónico no es válido.</span>
 				)}
 				<InputComponent
 					type='textarea'
 					name='message'
 					label='Mensaje:'
 					className='form-control'
-					rows='30'
-					cols='30'
+					autofocus
 					register={{ ...register('message', { required: true }) }}
 				/>
 				{errors.message?.type === 'required' && (
@@ -59,7 +72,7 @@ const ContactPage = () => {
 				)}
 				<div>
 					<Button type='submit' className='btn btn-primary'>
-						Enviar
+						Registrarse
 					</Button>
 				</div>
 			</Form>

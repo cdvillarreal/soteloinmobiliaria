@@ -16,6 +16,10 @@ const HeaderComponent = () => {
 							Inicio
 						</Nav.Link>
 						<NavDropdown title='Propiedades' id='basic-nav-dropdown'>
+							<NavDropdown.Item as={Link} to='/propiedades'>
+								Todas las prodiedades
+							</NavDropdown.Item>
+							<NavDropdown.Divider />
 							<NavDropdown.Item as={Link} to='/propiedades-venta'>
 								En Venta
 							</NavDropdown.Item>
@@ -44,6 +48,17 @@ const HeaderComponent = () => {
 							</NavDropdown.Item>
 							<NavDropdown.Item as={Link} to='/'>
 								Cerrar Sesión
+							</NavDropdown.Item> */}
+						</NavDropdown>
+						<NavDropdown title='Administración' id='basic-nav-dropdown'>
+							<NavDropdown.Item as={Link} to='/admin/agregar-propiedad'>
+								Agregar propiedad
+							</NavDropdown.Item>
+							{/* <NavDropdown.Item as={Link} to='/propiedades-anual'>
+								Alquiler anual
+							</NavDropdown.Item>
+							<NavDropdown.Item as={Link} to='/propiedades-temporario'>
+								Alquiler temporario
 							</NavDropdown.Item> */}
 						</NavDropdown>
 					</Nav>
