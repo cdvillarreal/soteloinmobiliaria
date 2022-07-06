@@ -71,5 +71,25 @@ const HeaderComponent = () => {
 		</Navbar>
 	);
 };
+// Código para el cuadro de búsqueda.
+// const [search, setSearch] = useState(''); Mover a HeaderComponent
+// useEffect(() => {
+// 	const request = async () => {
+// 		try {
+// 			const response = await getAllProperties();
+// 			console.log(response);
+// 			setProperties(response);
+// 			setLoading(false);
+// 		} catch (error) {
+// 			console.log(error);
+// 		}
+// 	};
+// 	request();
+// }, [search]);
+
+// const handleChange = (event) => {
+// 	const value = event.target.value;
+// 	setSearch(value);
+// }
 
 export default HeaderComponent;
